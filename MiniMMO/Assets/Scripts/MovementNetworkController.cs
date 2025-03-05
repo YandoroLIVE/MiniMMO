@@ -2,7 +2,6 @@ using System;
 using Unity.Netcode;
 using UnityEngine.UIElements;
 using UnityEngine;
-using UnityEngine;
 
 public class MovementNetworkController : NetworkBehaviour
 {
