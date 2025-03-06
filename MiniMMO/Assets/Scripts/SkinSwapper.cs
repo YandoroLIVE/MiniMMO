@@ -5,8 +5,20 @@ using UnityEngine;
 
 public class SkinSwapper : NetworkBehaviour
 {
-    public NetworkVariable<Color> objectColor = new NetworkVariable<Color>(new Color(1, 1, 1));
+    public NetworkVariable<Color> cubeColor = new NetworkVariable<Color>(new Color(1, 1, 1));
 
+    private Renderer cubeRenderer;
+
+
+    private void Start()
+    {
+        cubeRenderer = GetComponentInChildren<Renderer>();
+
+        if (cubeRenderer != null)
+        {
+            cubeRenderer.material.color = cubeColor.Value;
+        }
+    }
     void Update()
     {
         if (IsOwner)
@@ -16,14 +28,18 @@ public class SkinSwapper : NetworkBehaviour
                 ChangeColor(new Color(Random.value, Random.value, Random.value));
             }
         }
-        GetComponent<Renderer>().material.color = objectColor.Value;
+        
+        if (cubeRenderer != null)
+        {
+            cubeRenderer.material.color = cubeColor.Value;
+        }
     }
 
     public void ChangeColor(Color newColor)
     {
         if (IsServer)
         {
-            objectColor.Value = newColor;
+            cubeColor.Value = newColor;
         }
         else
         {
@@ -34,6 +50,6 @@ public class SkinSwapper : NetworkBehaviour
     [ServerRpc]
     void ChangeColorServerRpc (Color newColor)
     {
-        objectColor.Value = newColor;
+        cubeColor.Value = newColor;
     }
 }
