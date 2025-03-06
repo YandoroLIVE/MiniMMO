@@ -10,7 +10,7 @@ public class EmoteController : NetworkBehaviour
 
     private void Update()
     {
-        if (IsOwner && Input.GetKeyDown(KeyCode.Alpha1))
+        if (IsOwner && Input.GetKeyDown(KeyCode.Alpha2))
         {
             DisplayEmoteServerRpc();
         }
